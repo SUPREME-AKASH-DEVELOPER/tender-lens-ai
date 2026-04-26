@@ -29,20 +29,25 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "TenderLens AI — Explainable AI for Tender Evaluation" },
+      {
+        name: "description",
+        content:
+          "Audit-grade tender evaluation. Match bidder submissions against tender criteria with full source-cited reasoning and human review.",
+      },
+      { name: "author", content: "TenderLens" },
+      { property: "og:title", content: "TenderLens AI — Explainable Tender Evaluation" },
+      {
+        property: "og:description",
+        content:
+          "Eligibility decisions you can defend in writing — with the source excerpt, extracted value and reasoning behind every verdict.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
   shellComponent: RootShell,

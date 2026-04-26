@@ -9,38 +9,105 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IntakeRouteImport } from './routes/intake'
+import { Route as DossierRouteImport } from './routes/dossier'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EvaluationBidderIdRouteImport } from './routes/evaluation.$bidderId'
 
+const IntakeRoute = IntakeRouteImport.update({
+  id: '/intake',
+  path: '/intake',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DossierRoute = DossierRouteImport.update({
+  id: '/dossier',
+  path: '/dossier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvaluationBidderIdRoute = EvaluationBidderIdRouteImport.update({
+  id: '/evaluation/$bidderId',
+  path: '/evaluation/$bidderId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/dossier': typeof DossierRoute
+  '/intake': typeof IntakeRoute
+  '/evaluation/$bidderId': typeof EvaluationBidderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/dossier': typeof DossierRoute
+  '/intake': typeof IntakeRoute
+  '/evaluation/$bidderId': typeof EvaluationBidderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/dossier': typeof DossierRoute
+  '/intake': typeof IntakeRoute
+  '/evaluation/$bidderId': typeof EvaluationBidderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/about' | '/dossier' | '/intake' | '/evaluation/$bidderId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/about' | '/dossier' | '/intake' | '/evaluation/$bidderId'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/dossier'
+    | '/intake'
+    | '/evaluation/$bidderId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  DossierRoute: typeof DossierRoute
+  IntakeRoute: typeof IntakeRoute
+  EvaluationBidderIdRoute: typeof EvaluationBidderIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/intake': {
+      id: '/intake'
+      path: '/intake'
+      fullPath: '/intake'
+      preLoaderRoute: typeof IntakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dossier': {
+      id: '/dossier'
+      path: '/dossier'
+      fullPath: '/dossier'
+      preLoaderRoute: typeof DossierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +115,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evaluation/$bidderId': {
+      id: '/evaluation/$bidderId'
+      path: '/evaluation/$bidderId'
+      fullPath: '/evaluation/$bidderId'
+      preLoaderRoute: typeof EvaluationBidderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  DossierRoute: DossierRoute,
+  IntakeRoute: IntakeRoute,
+  EvaluationBidderIdRoute: EvaluationBidderIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
