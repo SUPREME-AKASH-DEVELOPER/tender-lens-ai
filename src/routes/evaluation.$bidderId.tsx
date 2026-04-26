@@ -2,6 +2,7 @@ import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StatusBadge } from "@/components/StatusBadge";
+import { generateBidderReport } from "@/lib/pdf-report";
 import {
   evaluateBidder,
   getBidder,
