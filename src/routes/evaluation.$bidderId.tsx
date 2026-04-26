@@ -2,6 +2,7 @@ import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StatusBadge } from "@/components/StatusBadge";
+import { generateBidderReport } from "@/lib/pdf-report";
 import {
   evaluateBidder,
   getBidder,
@@ -93,20 +94,31 @@ function EvaluationPage() {
             {new Date(bidder.submittedAt).toLocaleString()}
           </p>
         </div>
-        <div className="text-right">
-          <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground mb-2">
-            Determination
-          </p>
-          <p className="font-serif text-4xl italic">
-            {finalSummary.overall === "eligible"
-              ? "Eligible"
-              : finalSummary.overall === "ineligible"
-                ? "Not Eligible"
-                : "Needs Review"}
-          </p>
-          <p className="text-xs text-muted-foreground mt-1 tabular-nums">
-            Avg confidence {(finalSummary.avgConfidence * 100).toFixed(1)}%
-          </p>
+        <div className="flex flex-col items-end gap-3">
+          <div className="text-right">
+            <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground mb-2">
+              Determination
+            </p>
+            <p className="font-serif text-4xl italic">
+              {finalSummary.overall === "eligible"
+                ? "Eligible"
+                : finalSummary.overall === "ineligible"
+                  ? "Not Eligible"
+                  : "Needs Review"}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1 tabular-nums">
+              Avg confidence {(finalSummary.avgConfidence * 100).toFixed(1)}%
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() =>
+              generateBidderReport(bidder, results, { overrides, notes, attested })
+            }
+            className="px-5 py-2.5 border border-foreground text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-foreground hover:text-background transition-colors"
+          >
+            Download PDF Report
+          </button>
         </div>
       </section>
 
